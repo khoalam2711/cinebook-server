@@ -1,5 +1,4 @@
-import https from 'https';
-import fs from 'fs';
+import http from 'http';
 import express from 'express';
 import helmet from 'helmet';
 import passport, { Profile } from 'passport';
@@ -37,14 +36,6 @@ app.use(express.json());
 
 app.use('/auth', AuthRouter);
 
-https
-	.createServer(
-		{
-			cert: fs.readFileSync('cert.pem'),
-			key: fs.readFileSync('key.pem'),
-		},
-		app
-	)
-	.listen(PORT, () => {
-		console.log(`Listening on port ${PORT}...`);
-	});
+http.createServer(app).listen(PORT, () => {
+	console.log(`Listening on port ${PORT}...`);
+});
